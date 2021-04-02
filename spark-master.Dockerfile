@@ -1,7 +1,8 @@
 FROM spark-base
 
-ARG spark_master_web_ui=5050
+# Default master web UI
+ENV SPARK_MASTER_WEBUI_PORT=8080
 
-EXPOSE ${spark_master_web_ui} ${SPARK_MASTER_PORT}
+EXPOSE ${SPARK_MASTER_WEBUI_PORT} ${SPARK_MASTER_PORT}
 
 CMD bin/spark-class org.apache.spark.deploy.master.Master >> logs/spark-master.out

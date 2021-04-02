@@ -8,9 +8,12 @@ RUN mkdir -p ${shared_workspace} && \
     apt-get update -y && \
     apt-get install -y python3 && \
     ln -s /usr/bin/python3 /usr/bin/python && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 # Shared volume simulates HDFS
 ENV SHARED_WORKSPACE=${shared_workspace}
+ENV PATH $PATH:$JAVA_HOME/bin
+
 VOLUME ${shared_workspace}
 CMD ["bash"]

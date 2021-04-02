@@ -1,6 +1,6 @@
 FROM cluster-base
 
-ARG spark_version=3.1.1
+ARG spark_version=3.0.2
 ARG hadoop_version=3.2
 
 RUN apt-get update -y && \
@@ -15,5 +15,6 @@ ENV SPARK_HOME /usr/bin/spark-${spark_version}-bin-hadoop${hadoop_version}
 ENV SPARK_MASTER_HOST spark-master
 ENV SPARK_MASTER_PORT 7077
 ENV PYSPARK_PYTHON python3
+ENV PATH $PATH:$SPARK_HOME/bin
 
 WORKDIR ${SPARK_HOME}

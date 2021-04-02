@@ -1,3 +1,4 @@
+# Based on https://towardsdatascience.com/apache-spark-cluster-on-docker-ft-a-juyterlab-interface-418383c95445
 version: "3.9"
 
 # Shared volume
@@ -11,14 +12,23 @@ services:
   jupyterlab:
     image: jupyterlab
     container_name: jupyterlab
+    environment:
+      # For web-ui
+      - SPARK_PUBLIC_DNS=localhost
     ports:
+      # Jupyter notebooks
       - 8888:8888
+      # Spark UI, each SparkContexts gets a new one, starting 4040 
+      - 4040-4049:4040-4049
     volumes:
       - shared-workspace:/opt/workspace
 
   # Spark master
   spark-master:
     image: spark-master
+    environment:
+      - SPARK_PUBLIC_DNS=localhost
+      - SPARK_MASTER_WEBUI_PORT=5050
     ports:
       - 5050:5050
       - 7077:7077 # spark master default port
@@ -32,6 +42,10 @@ services:
     environment:
       - SPARK_WORKER_CORES=2
       - SPARK_WORKER_MEMORY=512m
+      # For web-ui
+      - SPARK_PUBLIC_DNS=localhost
+      - SPARK_WORKER_WEBUI_PORT=5051
+      - SPARK_MASTER_WEBUI_PORT=5050
     ports:
       - 5051:5051
     volumes:
@@ -45,8 +59,12 @@ services:
     environment:
       - SPARK_WORKER_CORES=2
       - SPARK_WORKER_MEMORY=512m
+      # For web-ui
+      - SPARK_PUBLIC_DNS=localhost
+      - SPARK_WORKER_WEBUI_PORT=5052
+      - SPARK_MASTER_WEBUI_PORT=5050
     ports:
-      - 5052:5051
+      - 5052:5052
     volumes:
       - shared-workspace:/opt/workspace
     depends_on:
