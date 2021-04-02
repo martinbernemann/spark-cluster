@@ -1,4 +1,4 @@
-# Based on https://towardsdatascience.com/apache-spark-cluster-on-docker-ft-a-juyterlab-interface-418383c95445
+# See howto.md
 version: "3.9"
 
 # Shared volume
