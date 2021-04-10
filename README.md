@@ -57,8 +57,24 @@ docker-compose up --force-recreate -d
 docker image prune -f
 ```
 
-## Known issues on Windows
-- Docker and linux WSL command line loose track of time during host  hibernation
+## Known issues
+- Docker and linux WSL command line loose track of time during host hibernation
+- Make sure to provide >=3GB or more to docker for building images, they get a SIGTERM otherwise during setup
+- To re-enable window switch on macOS set in "Keybard Shortcuts", disabling the detault, which opens settinsg eitor instead:
+```
+{ 
+  "shortcuts": [
+    {
+      "command": "settingeditor:open",
+      "keys": [
+        "Accel ,"
+      ],
+      "selector": "body",
+      "disabled": true
+    }
+  ]
+}
+```
 
-## Special thanks
-- First version by André Perez University of Sao Paulo. https://towardsdatascience.com/apache-spark-cluster-on-docker-ft-a-juyterlab-interface-418383c95445
+## Special thanks to
+- André Perez University of Sao Paulo. https://towardsdatascience.com/apache-spark-cluster-on-docker-ft-a-juyterlab-interface-418383c95445
